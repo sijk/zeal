@@ -158,21 +158,13 @@ void ZealSettingsDialog::DownloadCompleteCb(QNetworkReply *reply){
             for(auto drowx : collection) {
                 auto anchor = drowx.findFirst("a");
                 auto url = anchor.attribute("href");
-                auto name_list = url.split("/");
-                auto name = name_list[name_list.count()-1].replace(".tgz", "");
+                auto name = url.split("/").last();
+                name = name.replace(".tgz", "");
                 name = name.replace(".tar.bz2", "");
                 if(name != "" && !docsets->names().contains(name)) {
                     urls[name] = url;
-                    auto url_list = url.split("/");
-                    auto iconfile = url_list[url_list.count()-1].replace(".tgz", ".png");
-                    iconfile = iconfile.replace(".tar.bz2", ".png");
-#ifdef WIN32
-                   QDir icondir(QCoreApplication::applicationDirPath());
-                   icondir.cd("icons");
-#else
-                   QDir icondir("/usr/share/pixmaps/zeal");
-#endif
-                    auto *lwi = new QListWidgetItem(QIcon(icondir.filePath(iconfile)), name);
+                    auto icon = QIcon(QString(":/icons/%1.png").arg(name));
+                    auto *lwi = new QListWidgetItem(icon, name);
                     lwi->setCheckState(Qt::Unchecked);
                     ui->docsetsList->addItem(lwi);
                 }

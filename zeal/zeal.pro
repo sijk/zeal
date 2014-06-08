@@ -46,6 +46,8 @@ HEADERS  += mainwindow.h \
 FORMS    += mainwindow.ui \
     zealsettingsdialog.ui
 
+RESOURCES += icons.qrc
+
 
 QMAKE_CXXFLAGS += -std=c++11
 
@@ -61,11 +63,9 @@ unix:!macx: LIBS += -lxcb -lxcb-keysyms
 unix:!macx: SOURCES += xcb_keysym.cpp
 unix:!macx: DEFINES += LINUX
 
-icons.path=/usr/share/pixmaps/zeal
-icons.files=icons/*
 desktop.path=/usr/share/applications
 desktop.files=zeal.desktop
-unix:INSTALLS += icons desktop
+unix:INSTALLS += desktop
 
 include (widgets/widgets.pri)
 include (quazip/quazip.pri)

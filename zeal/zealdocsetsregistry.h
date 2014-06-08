@@ -53,13 +53,7 @@ public:
             icon = QIcon(dir(name).absoluteFilePath("icon.png"));
         }
         if(icon.availableSizes().isEmpty()) {
-#ifdef WIN32
-            QDir icondir(QCoreApplication::applicationDirPath());
-            icondir.cd("icons");
-#else
-            QDir icondir("/usr/share/pixmaps/zeal");
-#endif
-            icon = QIcon(icondir.filePath(name+".png"));
+           icon = QIcon(QString(":/icons/%1.png").arg(name));
         }
         return icon;
     }
